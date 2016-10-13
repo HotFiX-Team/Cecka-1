@@ -30,15 +30,15 @@ let clear = function () {
         that.firstColor = '#FF8C00';
         that.secondColor = '#EEEE00';
         that.onCollide = function(){
-            truck1.fallStop();
+            cecka1.fallStop();
         };
 
         if (type === 1) {
             that.firstColor = '#AA00EE';
             that.secondColor = '#698B22';
             that.onCollide = function(){
-                truck1.fallStop();
-                truck1.jumpSpeed = 50;
+                cecka1.fallStop();
+                cecka1.jumpSpeed = 50;
             };
         }
 
@@ -60,7 +60,7 @@ let clear = function () {
 
         return that;
     };
-let truck1 = new (function(){
+let cecka1 = new (function(){
     let that = this;
     that.image = new Image();
 
@@ -174,14 +174,14 @@ let truck1 = new (function(){
     }
 })();
 
-truck1.setPosition(~~((width-truck1.width)/2), height - truck1.height);
-truck1.jump();
+cecka1.setPosition(~~((width - cecka1.width)/2), height - cecka1.height);
+cecka1.jump();
 
 document.onmousemove = function(e){
-    if (truck1.X + c.offsetLeft > e.pageX) {
-        truck1.moveLeft();
-    } else if (truck1.X + c.offsetLeft < e.pageX) {
-        truck1.moveRight();
+    if (cecka1.X + c.offsetLeft > e.pageX) {
+        cecka1.moveLeft();
+    } else if (cecka1.X + c.offsetLeft < e.pageX) {
+        cecka1.moveRight();
     }
 };
 
@@ -208,11 +208,11 @@ let generatePlatforms = function(){
 let checkCollision = function(){
     platforms.forEach(function(e, ind){
         if (
-                (truck1.isFalling) &&
-                (truck1.X < e.x + platformWidth) &&
-                (truck1.X + truck1.width > e.x) &&
-                (truck1.Y + truck1.height > e.y) &&
-                (truck1.Y + truck1.height < e.y + platformHeight)
+                (cecka1.isFalling) &&
+                (cecka1.X < e.x + platformWidth) &&
+                (cecka1.X + cecka1.width > e.x) &&
+                (cecka1.Y + cecka1.height > e.y) &&
+                (cecka1.Y + cecka1.height < e.y + platformHeight)
         ) {
             e.onCollide();
         }
@@ -221,12 +221,12 @@ let checkCollision = function(){
 
 let GameLoop = function(){
     clear();
-    //MoveTruck1(5);
+    //MoveCecka1(5);
 
-    if (truck1.isJumping) truck1.checkJump();
-    if (truck1.isFalling) truck1.checkFall();
+    if (cecka1.isJumping) cecka1.checkJump();
+    if (cecka1.isFalling) cecka1.checkFall();
 
-    truck1.draw();
+    cecka1.draw();
 
     platforms.forEach(function(platform, index){
         if (platform.isMoving) {
@@ -243,7 +243,7 @@ let GameLoop = function(){
     checkCollision();
 
     ctx.fillStyle = "Black";
-    ctx.fillText("POINTS:" + points, 10, height-10);
+    ctx.fillText("POINTS: " + points, 10, height-10);
 
     if (state)
         gLoop = setTimeout(GameLoop, 1000 / 50);
@@ -254,11 +254,16 @@ let GameOver = function(){
     clearTimeout(gLoop);
     setTimeout(function(){
         clear();
-
         ctx.fillStyle = "Black";
-        ctx.font = "10pt Arial";
-        ctx.fillText("GAME OVER", width / 2 - 60, height / 2 - 50);
-        ctx.fillText("YOUR RESULT:" + points, width / 2 - 60, height / 2 - 30);
+        ctx.font = "12pt Arial";
+        ctx.lineWidth = 30;
+        ctx.fillText("GAME OVER", width / 2 - 60, height / 2 - 60);
+        ctx.font = "9pt Arial";
+        ctx.fillStyle = "Red";
+        ctx.fillText("Good luck on the next elections!", width / 2 - 60, height / 2 - 40);
+        ctx.font = "9pt Arial";
+        ctx.fillStyle = "Black";
+        ctx.fillText("Your result: " + points, width / 2 - 60, height / 2 - 20);
     }, 100);
 };
 
