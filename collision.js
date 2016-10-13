@@ -10,8 +10,8 @@
             let BLOCK_W = 64;
             let BLOCK_H = 64;
 
-            let truckX = 63;
-            let truckY = 750;
+            let ceckaX = 63;
+            let ceckaY = 750;
             let pixelMap = [];
 
             let dataRowColOffset = x+"_"+y;
